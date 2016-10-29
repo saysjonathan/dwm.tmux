@@ -13,9 +13,9 @@ dwm.tmux defines several keybindings to assist with pane management:
 - `Meta-.` Rotate panes clockwise
 - `Meta-R` Refresh layout
 
-Similar to dwm, windows are always organised as follows. A large Master pane is placed on the left side of the screen while a stack of smaller panes are placed on the right.
+## Details
 
-The Master pane is always pane 0 while the stack of panes are number sequentially in ascending order.
+Similar to dwm, windows are always organised as follows:
 
 ```
  ====================================
@@ -26,6 +26,10 @@ The Master pane is always pane 0 while the stack of panes are number sequentiall
 |                 |        S3        | 
  ====================================
 ```
+
+A large Master pane is placed on the left side of the screen while a stack of smaller panes are placed on the right.
+
+The Master pane is always pane 0 while the stack of panes are numbered sequentially in ascending order.
 
 ## Setup
 To use dwm.tmux:
