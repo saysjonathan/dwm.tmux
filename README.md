@@ -2,6 +2,8 @@ dwm.tmux
 ===
 [dwm](http://dwm.suckless.org/)-inspired tiling pane management for Tmux.
 
+![](https://raw.githubusercontent.com/saysjonathan/dwm.tmux/master/screenshot.png)
+
 ## Usage
 dwm.tmux defines several keybindings to assist with pane management:
 
