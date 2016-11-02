@@ -8,6 +8,7 @@ dwm.tmux
 dwm.tmux defines several keybindings to assist with pane management:
 
 - `Meta-N` Create a new pane and place it in the Main pane
+- `Meta-W` Create a new pane starting in the same directory and place it in the Main pane
 - `Meta-C` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
 - `Meta-J` Select the next pane (clockwise)
 - `Meta-K` Select the previous pane (counterclockwise)
