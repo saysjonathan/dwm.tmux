@@ -25,7 +25,7 @@ bind -n M-k select-pane -t :.-
 bind -n M-, rotate-window -U \; select-pane -t 0
 
 # Rotate clockwise
-bind -n M-. rotate-window -D \; select-pant -t 0
+bind -n M-. rotate-window -D \; select-pane -t 0
 
 # Focus selected pane
 bind -n M-Space swap-pane -s :. -t :.0 \; select-pane -t :.0
