@@ -13,7 +13,8 @@ bind -n M-w split-window -t :.0 -c "#{pane_current_path}" \;\
 # Kill pane
 bind -n M-c kill-pane -t :. \;\
         select-layout main-vertical \;\
-        run "tmux resize-pane -t :.0 -x \"$(echo \"#{window_width}/2/1\" | bc)\""
+        run "tmux resize-pane -t :.0 -x \"$(echo \"#{window_width}/2/1\" | bc)\"" \;\
+        select-pane -t :.+
 
 # Next pane
 bind -n M-j select-pane -t :.+
