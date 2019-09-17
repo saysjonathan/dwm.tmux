@@ -15,6 +15,8 @@ dwm.tmux defines several keybindings to assist with pane management:
 - `Meta-,` Rotate panes counterclockwise
 - `Meta-.` Rotate panes clockwise
 - `Meta-R` Refresh layout
+- `Meta-space` Place select pane in the Main pane
+- `Meta-m` Zoom selected pane
 
 ## Details
 
