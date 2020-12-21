@@ -1,3 +1,5 @@
+TMUXDWM_VERSION=0.1.0
+
 # Create new pane
 TMUXDWM_NEWPANE={
   split-window -t :.0
