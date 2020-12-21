@@ -9,8 +9,10 @@ bind -n M-w split-window -b -t :.0 -c "#{pane_current_path}" \;\
         select-layout main-vertical \;\
         run "tmux resize-pane -t :.0 -x 50%"
 
-# Kill pane
-bind -n M-c kill-pane -t :. \;\
+# Kill pane (only kill if we have more than one pane)
+TMUX_SHOULD_KILL_PANE="tmux display-message -p '#{window_panes}' | awk '{exit(!($0>1))}'"
+bind -n M-c if-shell "$TMUX_SHOULD_KILL_PANE" \
+        "kill-pane -t :." \;\
         select-layout main-vertical \;\
         run "tmux resize-pane -t :.0 -x 50%" \;\
         select-pane -t :.0
