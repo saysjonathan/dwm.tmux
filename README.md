@@ -15,15 +15,15 @@ dwm.tmux requires tmux > 3.1.
 ## Usage
 `dwm.tmux` defines the following complex commands as environment variables, each with a default keybinding
 
-- `TMUXDWM_NEWPANE` `Meta-N` Create a new pane and place it in the Main pane
-- `TMUXDWM_NEWPANECDIR` `Meta-W` Create a new pane starting in the same directory and place it in the Main pane
-- `TMUXDWM_KILLPANE` `Meta-C` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
-- `TMUXDWM_NEXTPANE` `Meta-J` Select the next pane (clockwise)
-- `TMUXDWM_PREVPANE` `Meta-K` Select the previous pane (counterclockwise)
+- `TMUXDWM_NEWPANE` `Meta-n` Create a new pane and place it in the Main pane
+- `TMUXDWM_NEWPANECDIR` `Meta-w` Create a new pane starting in the same directory and place it in the Main pane
+- `TMUXDWM_KILLPANE` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
+- `TMUXDWM_NEXTPANE` `Meta-j` Select the next pane (clockwise)
+- `TMUXDWM_PREVPANE` `Meta-k` Select the previous pane (counterclockwise)
 - `TMUXDWM_ROTATECCW` `Meta-,` Rotate panes counterclockwise
 - `TMUXDWM_ROTATECW` `Meta-.` Rotate panes clockwise
-- `TMUXDWM_REFRESH` `Meta-R` Refresh layout (return to Main and Stack setup)
-- `TMUXDWM_FOCUSPANE` `Meta-space` Place select pane in the Main pane
+- `TMUXDWM_REFRESH` `Meta-r` Refresh layout (return to Main and Stack setup)
+- `TMUXDWM_FOCUSPANE` `Meta-Space` Place select pane in the Main pane
 - `TMUXDWM_ZOOM` `Meta-m` Zoom selected pane
 
 ### Custom keybindings
