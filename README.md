@@ -26,6 +26,10 @@ dwm.tmux requires tmux > 3.2.
 - `zoom` `Meta-Enter` Place select pane in the Main pane
 - `float` `Meta-Space` Switch pane to floating fullscreen
 
+Also defined are environment variables to tweak behavior:
+
+- `killlast` If value is greater than `0`, kill pane even if its the last pane in a window
+
 ### Custom keybindings
 Custom keybindings can be created by creating a new binding for the appropriate command:
 
