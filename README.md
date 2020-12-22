@@ -4,13 +4,32 @@ dwm.tmux
 
 ![](https://raw.githubusercontent.com/saysjonathan/dwm.tmux/master/screenshot.png)
 
-## Setup
-To use dwm.tmux:
-
-- `git clone git@github.com/saysjonathan/dwm.tmux.git $HOME/.dwm.tmux`
-- `echo 'source-file $HOME/.dwm.tmux/dwm.tmux' >> $HOME/.tmux.conf`
-
+## Dependencies
 dwm.tmux requires tmux > 3.2.
+
+## Installation
+To install, use the provided `Makefile`:
+
+```sh
+git clone https://github.com/saysjonathan/dwm.tmux.git
+cd dwm.tmux
+make
+```
+
+By default `dwm.tmux` uses `/usr/local` as it's prefix. To change the prefix:
+
+```sh
+make PREFIX=$HOME
+```
+
+Ensure that `$PREFIX/bin` is in your `PATH`.
+
+## Setup
+To use, source the `dwm.tmux` tmux config:
+
+```sh
+echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
+```
 
 ## Usage
 `dwm.tmux` defines the following command aliases, each with a default keybinding:
@@ -55,6 +74,3 @@ Similar to dwm, windows are always organised as follows:
 ```
 
 A large Main pane is placed on the left side of the screen while a stack of smaller panes is placed on the right. The Main pane is always pane 0,  while the stack of panes is numbered sequentially in ascending order.
-
-
-
