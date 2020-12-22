@@ -44,20 +44,24 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `layouttile` `Meta-t` Refresh layout (return to Main and Stack setup)
 - `zoom` `Meta-Enter` Place select pane in the Main pane
 - `float` `Meta-Space` Switch pane to floating fullscreen
+- `decmfact` `Meta-h` Decrease the main pane space factor
+- `incmfact` `Meta-l` Increase the main pane space factor
 
 Also defined are environment variables to tweak behavior:
 
+- `mfact` Main pane space factor, the size of the main pane as a percentage of total window size
 - `killlast` If value is greater than `0`, kill pane even if its the last pane in a window
 
-### Custom keybindings
-Custom keybindings can be created by creating a new binding for the appropriate command:
+### Customizations
+Keybindings and default values can be set in a configuration file:
 
 ```
+setenv -g killlast 1 # kill pane even if it's the last
 bind -n M-q killpane
 bind -n M-t newpanecurdir
 ```
 
-Custom keybindings should be added after the `source-file` command which loads dwm.tmux.
+Customizations should be added after the `source-file` command which loads `dwm.tmux`.
 
 ## Details
 
