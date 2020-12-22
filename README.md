@@ -10,28 +10,28 @@ To use dwm.tmux:
 - `git clone git@github.com/saysjonathan/dwm.tmux.git $HOME/.dwm.tmux`
 - `echo 'source-file $HOME/.dwm.tmux/dwm.tmux' >> $HOME/.tmux.conf`
 
-dwm.tmux requires tmux > 3.1.
+dwm.tmux requires tmux > 3.2.
 
 ## Usage
-`dwm.tmux` defines the following complex commands as environment variables, each with a default keybinding
+`dwm.tmux` defines the following command aliases, each with a default keybinding:
 
-- `TMUXDWM_NEWPANE` `Meta-n` Create a new pane and place it in the Main pane
-- `TMUXDWM_NEWPANECDIR` `Meta-w` Create a new pane starting in the same directory and place it in the Main pane
-- `TMUXDWM_KILLPANE` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
-- `TMUXDWM_NEXTPANE` `Meta-j` Select the next pane (clockwise)
-- `TMUXDWM_PREVPANE` `Meta-k` Select the previous pane (counterclockwise)
-- `TMUXDWM_ROTATECCW` `Meta-,` Rotate panes counterclockwise
-- `TMUXDWM_ROTATECW` `Meta-.` Rotate panes clockwise
-- `TMUXDWM_REFRESH` `Meta-r` Refresh layout (return to Main and Stack setup)
-- `TMUXDWM_FOCUSPANE` `Meta-Space` Place select pane in the Main pane
-- `TMUXDWM_ZOOM` `Meta-m` Zoom selected pane
+- `newpane` `Meta-n` Create a new pane and place it in the Main pane
+- `newpanecurdir` `Meta-w` Create a new pane starting in the same directory and place it in the Main pane
+- `killpane` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
+- `nextpane` `Meta-j` Select the next pane (clockwise)
+- `prevpane` `Meta-k` Select the previous pane (counterclockwise)
+- `rotateccw` `Meta-,` Rotate panes counterclockwise
+- `rotatecw` `Meta-.` Rotate panes clockwise
+- `layouttile` `Meta-t` Refresh layout (return to Main and Stack setup)
+- `zoom` `Meta-Enter` Place select pane in the Main pane
+- `float` `Meta-Space` Switch pane to floating fullscreen
 
 ### Custom keybindings
 Custom keybindings can be created by creating a new binding for the appropriate command:
 
 ```
-bind -n M-q $TMUXDWM_KILLPANE
-bind -n M-t $TMUXDWM_NEWPANECDIR
+bind -n M-q killpane
+bind -n M-t newpanecurdir
 ```
 
 Custom keybindings should be added after the `source-file` command which loads dwm.tmux.
