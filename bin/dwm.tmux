@@ -1,7 +1,10 @@
 #!/bin/sh
 
+window_panes=
+killlast=
+mfact=
+
 newpane() {
-  mfact=$(tmux display -p "#{mfact}")
   tmux \
     split-window -t :.0\; \
     swap-pane -s :.0 -t :.1\; \
@@ -10,7 +13,6 @@ newpane() {
 }
 
 newpanecurdir() {
-  mfact=$(tmux display -p "#{mfact}")
   tmux \
     split-window -b -t :.0 -c "#{pane_current_path}"\; \
     swap-pane -s :.0 -t :.1\; \
@@ -19,11 +21,7 @@ newpanecurdir() {
 }
 
 killpane() {
-  panes=$(tmux display -p "#{window_panes}")
-  killlast=$(tmux display -p "#{killlast}")
-  mfact=$(tmux display -p "#{mfact}")
-
-  if [ $panes -gt 1 ]; then
+  if [ $window_panes -gt 1 ]; then
     tmux kill-pane -t :.\; \
          select-layout main-vertical\; \
          resize-pane -t :.0 -x ${mfact}%
@@ -55,7 +53,6 @@ zoom() {
 }
 
 layouttile() {
-  mfact=$(tmux display -p "#{mfact}")
   tmux select-layout main-vertical\; resize-pane -t :.0 -x ${mfact}%
 }
 
@@ -64,7 +61,6 @@ float() {
 }
 
 incmfact() {
-  mfact=$(tmux display -p "#{mfact}")
   fact=$((mfact + 5))
   if [ $fact -le 95 ]; then
     tmux \
@@ -74,7 +70,6 @@ incmfact() {
 }
 
 decmfact() {
-  mfact=$(tmux display -p "#{mfact}")
   fact=$((mfact - 5))
   if [ $fact -ge 5 ]; then
     tmux \
@@ -89,6 +84,11 @@ if [ $# -lt 1 ]; then
 fi
 
 command=$1;shift
+set -- $(echo $(tmux display -p "#{window_panes}\n#{killlast}\n#{mfact}"))
+window_panes=$1
+killlast=$2
+mfact=$3
+
 case $command in
   newpane) newpane;;
   newpanecurdir) newpanecurdir;;
