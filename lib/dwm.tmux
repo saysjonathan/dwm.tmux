@@ -15,6 +15,8 @@ set -g command-alias[109] float='run-shell "dwm.tmux float"'
 set -g command-alias[110] incmfact='run-shell "dwm.tmux incmfact"'
 set -g command-alias[111] decmfact='run-shell "dwm.tmux decmfact"'
 
+set-hook -g pane-exited 'run-shell "dwm.tmux layouttile"'
+
 bind -n M-n newpane
 bind -n M-w newpanecurdir
 bind -n M-c killpane
