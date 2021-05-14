@@ -39,8 +39,8 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `killpane` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
 - `nextpane` `Meta-j` Select the next pane (clockwise)
 - `prevpane` `Meta-k` Select the previous pane (counterclockwise)
-- `rotateccw` `Meta-,` Rotate panes counterclockwise
-- `rotatecw` `Meta-.` Rotate panes clockwise
+- `rotateccw` `Meta-<` Rotate panes counterclockwise
+- `rotatecw` `Meta->` Rotate panes clockwise
 - `layouttile` `Meta-t` Refresh layout (return to Main and Stack setup)
 - `zoom` `Meta-Enter` Place select pane in the Main pane
 - `float` `Meta-Space` Switch pane to floating fullscreen
