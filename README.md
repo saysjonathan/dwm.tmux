@@ -46,6 +46,7 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `float` `Meta-Space` Switch pane to floating fullscreen
 - `decmfact` `Meta-h` Decrease the main pane space factor
 - `incmfact` `Meta-l` Increase the main pane space factor
+- `window[0-9]` `Meta-[0-9]` Select the target window by ID
 
 Also defined are environment variables to tweak behavior:
 
