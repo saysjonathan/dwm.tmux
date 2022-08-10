@@ -78,12 +78,18 @@ decmfact() {
   fi
 }
 
+window() {
+  window=$1
+  tmux selectw -t $window
+}
+
 if [ $# -lt 1 ]; then
   echo "dwm.tmux.sh [command]"
   exit
 fi
 
 command=$1;shift
+args=$*
 set -- $(echo $(tmux display -p "#{window_panes}\n#{killlast}\n#{mfact}"))
 window_panes=$1
 killlast=$2
@@ -102,5 +108,6 @@ case $command in
   float) float;;
   incmfact) incmfact;;
   decmfact) decmfact;;
+  window) window $args;;
   *) echo "unknown command"; exit 1;;
 esac
