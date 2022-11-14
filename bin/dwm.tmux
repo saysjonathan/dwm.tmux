@@ -90,7 +90,7 @@ fi
 
 command=$1;shift
 args=$*
-set -- $(echo $(tmux display -p "#{window_panes}\n#{killlast}\n#{mfact}"))
+set -- $(tmux display -p "#{window_panes} #{killlast} #{mfact}")
 window_panes=$1
 killlast=$2
 mfact=$3
