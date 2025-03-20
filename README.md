@@ -1,6 +1,6 @@
 dwm.tmux
 ===
-[dwm](http://dwm.suckless.org/)-inspired tiling pane management for Tmux.
+[dwm](http://dwm.suckless.org/)-inspired tiling pane and window manager for Tmux.
 
 ![](https://raw.githubusercontent.com/saysjonathan/dwm.tmux/master/screenshot.png)
 
