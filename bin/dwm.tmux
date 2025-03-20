@@ -90,7 +90,20 @@ newwindow() {
 
 # delete the current active window
 killwindow() {
+  current_index=$(tmux display-message -p '#I')
+  window_count=$(tmux display-message -p '#{session_windows}')
   tmux kill-window
+  
+  # If this wasn't the last window, we need to reorder
+  if [ "$window_count" -gt 1 ]; then
+    # Start at the first window that needs to be moved (the one after the deleted window)
+    # and continue through all remaining windows
+    i=$((current_index + 1))
+    while [ $i -lt $window_count ]; do
+      tmux move-window -s:$i -t:$((i-1))
+      i=$((i + 1))
+    done
+  fi
 }
 
 # display a floating pane popup in the current pane path
