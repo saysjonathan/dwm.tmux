@@ -24,6 +24,9 @@ set -g command-alias[118] window6='run-shell "dwm.tmux window 6"'
 set -g command-alias[119] window7='run-shell "dwm.tmux window 7"'
 set -g command-alias[120] window8='run-shell "dwm.tmux window 8"'
 set -g command-alias[121] window9='run-shell "dwm.tmux window 9"'
+set -g command-alias[122] newwindow='run-shell "dwm.tmux newwindow"'
+set -g command-alias[123] killwindow='run-shell "dwm.tmux killwindow"'
+set -g command-alias[124] popup='run-shell "dwm.tmux popup"'
 
 set-hook -g pane-exited 'run-shell "dwm.tmux layouttile"'
 
@@ -49,3 +52,6 @@ bind -n M-6 window6
 bind -n M-7 window7
 bind -n M-8 window8
 bind -n M-9 window9
+bind -n M-N newwindow
+bind -n M-X killwindow
+bind -n M-p popup

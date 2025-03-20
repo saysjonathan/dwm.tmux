@@ -47,6 +47,9 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `decmfact` `Meta-h` Decrease the main pane space factor
 - `incmfact` `Meta-l` Increase the main pane space factor
 - `window[0-9]` `Meta-[0-9]` Select the target window by ID
+- `newwindow` `Meta-N` Create a new window starting in the same directory as the current pane
+- `killwindow` `Meta-X` Delete the current active window
+- `popup` `Meta-p` Display a floating pane popup in the current pane's directory
 
 Also defined are environment variables to tweak behavior:
 

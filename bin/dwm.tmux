@@ -83,6 +83,21 @@ window() {
   tmux selectw -t $window
 }
 
+# create a new window
+newwindow() {
+  tmux new-window -c "#{pane_current_path}"
+}
+
+# delete the current active window
+killwindow() {
+  tmux kill-window
+}
+
+# display a floating pane popup in the current pane path
+popup() {
+  tmux display-popup -E -d "#{pane_current_path}"
+}
+
 if [ $# -lt 1 ]; then
   echo "dwm.tmux.sh [command]"
   exit
@@ -109,5 +124,8 @@ case $command in
   incmfact) incmfact;;
   decmfact) decmfact;;
   window) window $args;;
+  newwindow) newwindow;;
+  killwindow) killwindow;;
+  popup) popup;;
   *) echo "unknown command"; exit 1;;
 esac
