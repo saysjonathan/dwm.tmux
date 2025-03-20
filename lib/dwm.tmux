@@ -27,6 +27,16 @@ set -g command-alias[121] window9='run-shell "dwm.tmux window 9"'
 set -g command-alias[122] newwindow='run-shell "dwm.tmux newwindow"'
 set -g command-alias[123] killwindow='run-shell "dwm.tmux killwindow"'
 set -g command-alias[124] popup='run-shell "dwm.tmux popup"'
+set -g command-alias[125] movepane0='run-shell "dwm.tmux movepane 0"'
+set -g command-alias[126] movepane1='run-shell "dwm.tmux movepane 1"'
+set -g command-alias[127] movepane2='run-shell "dwm.tmux movepane 2"'
+set -g command-alias[128] movepane3='run-shell "dwm.tmux movepane 3"'
+set -g command-alias[129] movepane4='run-shell "dwm.tmux movepane 4"'
+set -g command-alias[130] movepane5='run-shell "dwm.tmux movepane 5"'
+set -g command-alias[131] movepane6='run-shell "dwm.tmux movepane 6"'
+set -g command-alias[132] movepane7='run-shell "dwm.tmux movepane 7"'
+set -g command-alias[133] movepane8='run-shell "dwm.tmux movepane 8"'
+set -g command-alias[134] movepane9='run-shell "dwm.tmux movepane 9"'
 
 set-hook -g pane-exited 'run-shell "dwm.tmux layouttile"'
 
@@ -55,3 +65,13 @@ bind -n M-9 window9
 bind -n M-N newwindow
 bind -n M-X killwindow
 bind -n M-p popup
+bind -n M-\) movepane0
+bind -n M-! movepane1
+bind -n M-@ movepane2
+bind -n M-# movepane3
+bind -n M-$ movepane4
+bind -n M-% movepane5
+bind -n M-^ movepane6
+bind -n M-& movepane7
+bind -n M-* movepane8
+bind -n M-( movepane9

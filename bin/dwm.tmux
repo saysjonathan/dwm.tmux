@@ -40,6 +40,38 @@ prevpane() {
   tmux select-pane -t :.-
 }
 
+# move current pane to a specific window
+movepane() {
+  window=$1
+  newwin=0
+  
+  # Check if target window exists, create it if it doesn't
+  if ! tmux has-session -t:$window 2>/dev/null; then
+    newwin=1
+    tmux new-window -d -t:$window
+  fi
+  
+  # Move the current pane to the specified window and
+  # retile the current window
+  tmux \
+    move-pane -t:$window\; \
+    select-layout main-vertical\; \
+    resize-pane -t :.0 -x ${mfact}%
+
+  # Select the window where we moved the pane
+  if [ $newwin -ne 0 ]; then
+    tmux \
+      select-window -t:$window\; \
+      kill-pane -t:.0
+  else
+    tmux select-window -t:$window
+  fi
+
+  # Apply the dwm layout to the target window
+  tmux select-layout -t:$window main-vertical
+  tmux resize-pane -t:${window}.0 -x ${mfact}%
+}
+
 rotateccw() {
   tmux rotate-window -U\; select-pane -t 0
 }
@@ -140,5 +172,6 @@ case $command in
   newwindow) newwindow;;
   killwindow) killwindow;;
   popup) popup;;
+  movepane) movepane $args;;
   *) echo "unknown command"; exit 1;;
 esac

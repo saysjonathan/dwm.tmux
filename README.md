@@ -37,6 +37,7 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `newpane` `Meta-n` Create a new pane and place it in the Main pane
 - `newpanecurdir` `Meta-w` Create a new pane starting in the same directory and place it in the Main pane
 - `killpane` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
+- `movepane[0-9]` `Meta-Shift-[0-9]` Move the current pane to the specified window
 - `nextpane` `Meta-j` Select the next pane (clockwise)
 - `prevpane` `Meta-k` Select the previous pane (counterclockwise)
 - `rotateccw` `Meta-<` Rotate panes counterclockwise
