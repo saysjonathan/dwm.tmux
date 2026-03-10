@@ -142,7 +142,7 @@ window() {
 
 # create a new window
 newwindow() {
-  tmux new-window -c "#{pane_current_path}"
+  tmux new-window -c "#{pane_current_path}" -n ""
 }
 
 # delete the current active window
