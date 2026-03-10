@@ -1,7 +1,7 @@
 setenv -g tmuxdwm_version 0.1.0
 setenv -g killlast 0 # Toggle killing last pane
-setenv -g mfact 50   # Main pane area factor
-setenv -g monocle 0
+set-option -wg @mfact 50   # Main pane area factor
+set-option -wg @monocle 0
 
 set -g command-alias[100] newpane='run-shell "dwm.tmux newpane"'
 set -g command-alias[101] newpanecurdir='run-shell "dwm.tmux newpanecurdir"'
