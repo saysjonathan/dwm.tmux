@@ -40,6 +40,18 @@ prevpane() {
   fi
 }
 
+stackup() {
+  if [ "$pane_index" -gt 1 ]; then
+    tmux swap-pane -U\; $layout
+  fi
+}
+
+stackdown() {
+  if [ "$pane_index" -lt $((window_panes - 1)) ] && [ "$pane_index" -ge 1 ]; then
+    tmux swap-pane -D\; $layout
+  fi
+}
+
 # move current pane to a specific window
 movepane() {
   window=$1
@@ -163,11 +175,12 @@ fi
 
 command=$1;shift
 args=$*
-set -- $(tmux display -p "#{window_panes} #{killlast} #{mfact} #{monocle}")
+set -- $(tmux display -p "#{window_panes} #{pane_index} #{killlast} #{mfact} #{monocle}")
 window_panes=$1
-killlast=${2:-0}
-mfact=${3:-50}
-monocle=${4:-0}
+pane_index=$2
+killlast=${3:-0}
+mfact=${4:-50}
+monocle=${5:-0}
 
 if [ "$monocle" -eq 1 ]; then
   layout="select-layout main-vertical; resize-pane -t :.0 -x ${mfact}%; resize-pane -Z"
@@ -195,5 +208,7 @@ case $command in
   killwindow) killwindow;;
   popup) popup;;
   movepane) movepane $args;;
+  stackup) stackup;;
+  stackdown) stackdown;;
   *) echo "unknown command"; exit 1;;
 esac

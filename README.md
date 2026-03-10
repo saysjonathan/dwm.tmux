@@ -40,11 +40,13 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `movepane[0-9]` `Meta-Shift-[0-9]` Move the current pane to the specified window
 - `nextpane` `Meta-j` Select the next pane (clockwise); swaps fullscreen pane in monocle mode
 - `prevpane` `Meta-k` Select the previous pane (counterclockwise); swaps fullscreen pane in monocle mode
+- `stackup` `Meta-J` Move focused pane up the stack
+- `stackdown` `Meta-K` Move focused pane down the stack
 - `rotateccw` `Meta-<` Rotate panes counterclockwise
 - `rotatecw` `Meta->` Rotate panes clockwise
 - `tile` `Meta-t` Return to tiled layout, exiting monocle if active
 - `monocle` `Meta-Space` Toggle monocle mode (fullscreen current pane)
-- `zoom` `Meta-Enter` Place select pane in the Main pane
+- `zoom` `Meta-Enter` Place selected pane in the Main pane
 - `decmfact` `Meta-h` Decrease the main pane space factor
 - `incmfact` `Meta-l` Increase the main pane space factor
 - `window[0-9]` `Meta-[0-9]` Select the target window by ID
