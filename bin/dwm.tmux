@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Create a new pane in the current window
 newpane() {
   tmux \
     split-window -t :.0\; \
@@ -7,6 +8,7 @@ newpane() {
     $layout
 }
 
+# Create a new pane in the current directory in the current window
 newpanecurdir() {
   tmux \
     split-window -t :.0 -c "#{pane_current_path}"\; \
@@ -14,16 +16,19 @@ newpanecurdir() {
     $layout
 }
 
+# Kill the focused pane
 killpane() {
   if [ $window_panes -gt 1 ]; then
     tmux kill-pane -t :.\; $layout
   else
+    # Only kill the last pane if $killlast is set
     if [ $killlast -ne 0 ]; then
       tmux kill-window
     fi
   fi
 }
 
+# Move focus to the next pane sequentially
 nextpane() {
   if [ "$monocle" -eq 0 ]; then
     tmux select-pane -t :.+
@@ -32,6 +37,7 @@ nextpane() {
   fi
 }
 
+# Move focus to the previous pane sequentially
 prevpane() {
   if [ "$monocle" -eq 0 ]; then
     tmux select-pane -t :.-
@@ -40,19 +46,23 @@ prevpane() {
   fi
 }
 
+# Move the focused pane up the stack
 stackup() {
+  # Guard against moving panes 0 or 1
   if [ "$pane_index" -gt 1 ]; then
     tmux swap-pane -U\; $layout
   fi
 }
 
+# Move the focused pane down the stack
 stackdown() {
+  # Guard against moving the last pane or pane 0
   if [ "$pane_index" -lt $((window_panes - 1)) ] && [ "$pane_index" -ge 1 ]; then
     tmux swap-pane -D\; $layout
   fi
 }
 
-# move current pane to a specific window
+# Move current pane to a specific window
 movepane() {
   window=$1
   newwin=0
@@ -82,18 +92,22 @@ movepane() {
   tmux $layout
 }
 
+# Rotate the panes in the current window counterclockwise
 rotateccw() {
   tmux rotate-window -U\; select-pane -t 0\; $layout
 }
 
+# Rotate the panes in the current window clockwise
 rotatecw() {
   tmux rotate-window -D\; select-pane -t 0\; $layout
 }
 
+# Promote focused pane to main
 zoom() {
   tmux swap-pane -s :. -t :.0\; select-pane -t :.0\; $layout
 }
 
+# Set the layout to tiled
 tile() {
   tmux \
     setenv monocle 0\; \
@@ -101,6 +115,7 @@ tile() {
     resize-pane -t :.0 -x ${mfact}%
 }
 
+# Toggle monocle mode, fullscreen focused pane
 monocle() {
   if [ "$monocle" -eq 0 ]; then
     tmux \
@@ -113,10 +128,12 @@ monocle() {
   fi
 }
 
+# Reapply the current layout
 layout() {
   tmux $layout
 }
 
+# Increment the size of the main pane
 incmfact() {
   fact=$((mfact + 5))
   if [ $fact -le 95 ]; then
@@ -126,6 +143,7 @@ incmfact() {
   fi
 }
 
+# Decrement the size of the main pane
 decmfact() {
   fact=$((mfact - 5))
   if [ $fact -ge 5 ]; then
@@ -135,17 +153,18 @@ decmfact() {
   fi
 }
 
+# Select target window by index
 window() {
   window=$1
   tmux selectw -t $window
 }
 
-# create a new window
+# Create a new window
 newwindow() {
   tmux new-window -c "#{pane_current_path}" -n ""
 }
 
-# delete the current active window
+# Delete the current window
 killwindow() {
   current_index=$(tmux display-message -p '#I')
   window_count=$(tmux display-message -p '#{session_windows}')
@@ -163,18 +182,24 @@ killwindow() {
   fi
 }
 
-# display a floating pane popup in the current pane path
+# Display a floating pane popup in the current directory
 popup() {
   tmux display-popup -E -d "#{pane_current_path}"
 }
 
+
+# Exit if no command is provided
 if [ $# -lt 1 ]; then
   echo "dwm.tmux.sh [command]"
   exit
 fi
 
 command=$1;shift
-args=$*
+
+# Cache args for passing into functions later
+args=$@
+
+# Set positional arguments from tmux env var checks
 set -- $(tmux display -p "#{window_panes} #{pane_index} #{killlast} #{mfact} #{monocle}")
 window_panes=$1
 pane_index=$2
@@ -182,6 +207,7 @@ killlast=${3:-0}
 mfact=${4:-50}
 monocle=${5:-0}
 
+# Specify the correct layout depending on the mode
 if [ "$monocle" -eq 1 ]; then
   layout="select-layout main-vertical; resize-pane -t :.0 -x ${mfact}%; resize-pane -Z"
 else
