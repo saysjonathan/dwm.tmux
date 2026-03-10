@@ -38,13 +38,13 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `newpanecurdir` `Meta-w` Create a new pane starting in the same directory and place it in the Main pane
 - `killpane` `Meta-c` Close the current pane. If the pane is in the Main pane, close the pane and promote the first pane in the stack to the Main pane
 - `movepane[0-9]` `Meta-Shift-[0-9]` Move the current pane to the specified window
-- `nextpane` `Meta-j` Select the next pane (clockwise)
-- `prevpane` `Meta-k` Select the previous pane (counterclockwise)
+- `nextpane` `Meta-j` Select the next pane (clockwise); swaps fullscreen pane in monocle mode
+- `prevpane` `Meta-k` Select the previous pane (counterclockwise); swaps fullscreen pane in monocle mode
 - `rotateccw` `Meta-<` Rotate panes counterclockwise
 - `rotatecw` `Meta->` Rotate panes clockwise
-- `layouttile` `Meta-t` Refresh layout (return to Main and Stack setup)
+- `tile` `Meta-t` Return to tiled layout, exiting monocle if active
+- `monocle` `Meta-Space` Toggle monocle mode (fullscreen current pane)
 - `zoom` `Meta-Enter` Place select pane in the Main pane
-- `float` `Meta-Space` Switch pane to floating fullscreen
 - `decmfact` `Meta-h` Decrease the main pane space factor
 - `incmfact` `Meta-l` Increase the main pane space factor
 - `window[0-9]` `Meta-[0-9]` Select the target window by ID
@@ -56,6 +56,7 @@ Also defined are environment variables to tweak behavior:
 
 - `mfact` Main pane space factor, the size of the main pane as a percentage of total window size
 - `killlast` If value is greater than `0`, kill pane even if its the last pane in a window
+- `monocle` Tracks active layout mode; 0 for tile, 1 for monocle. Set automatically but can be read to inspect current state.
 
 ### Customizations
 Keybindings and default values can be set in a configuration file:
@@ -63,7 +64,7 @@ Keybindings and default values can be set in a configuration file:
 ```
 setenv -g killlast 1 # kill pane even if it's the last
 bind -n M-q killpane
-bind -n M-t newpanecurdir
+bind -n M-w newpanecurdir
 ```
 
 Customizations should be added after the `source-file` command which loads `dwm.tmux`.

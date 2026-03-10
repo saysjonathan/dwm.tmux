@@ -1,6 +1,7 @@
 setenv -g tmuxdwm_version 0.1.0
 setenv -g killlast 0 # Toggle killing last pane
 setenv -g mfact 50   # Main pane area factor
+setenv -g monocle 0
 
 set -g command-alias[100] newpane='run-shell "dwm.tmux newpane"'
 set -g command-alias[101] newpanecurdir='run-shell "dwm.tmux newpanecurdir"'
@@ -10,7 +11,7 @@ set -g command-alias[104] prevpane='run-shell "dwm.tmux prevpane"'
 set -g command-alias[105] rotateccw='run-shell "dwm.tmux rotateccw"'
 set -g command-alias[106] rotatecw='run-shell "dwm.tmux rotatecw"'
 set -g command-alias[107] zoom='run-shell "dwm.tmux zoom"'
-set -g command-alias[108] layouttile='run-shell "dwm.tmux layouttile"'
+set -g command-alias[108] tile='run-shell "dwm.tmux tile"'
 set -g command-alias[109] float='run-shell "dwm.tmux float"'
 set -g command-alias[110] incmfact='run-shell "dwm.tmux incmfact"'
 set -g command-alias[111] decmfact='run-shell "dwm.tmux decmfact"'
@@ -37,8 +38,10 @@ set -g command-alias[131] movepane6='run-shell "dwm.tmux movepane 6"'
 set -g command-alias[132] movepane7='run-shell "dwm.tmux movepane 7"'
 set -g command-alias[133] movepane8='run-shell "dwm.tmux movepane 8"'
 set -g command-alias[134] movepane9='run-shell "dwm.tmux movepane 9"'
+set -g command-alias[135] monocle='run-shell "dwm.tmux monocle"'
+set -g command-alias[136] layout='run-shell "dwm.tmux layout"'
 
-set-hook -g pane-exited 'run-shell "dwm.tmux layouttile"'
+set-hook -g pane-exited 'run-shell "dwm.tmux layout"'
 
 bind -n M-n newpane
 bind -n M-w newpanecurdir
@@ -48,8 +51,8 @@ bind -n M-k prevpane
 bind -n M-< rotateccw
 bind -n M-> rotatecw
 bind -n M-Enter zoom
-bind -n M-t layouttile
-bind -n M-Space float
+bind -n M-t tile
+bind -n M-Space monocle
 bind -n M-h decmfact
 bind -n M-l incmfact
 bind -n M-0 window0

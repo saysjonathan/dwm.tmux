@@ -1,30 +1,22 @@
 #!/bin/sh
 
-window_panes=
-killlast=
-mfact=
-
 newpane() {
   tmux \
     split-window -t :.0\; \
     swap-pane -s :.0 -t :.1\; \
-    select-layout main-vertical\; \
-    resize-pane -t :.0 -x ${mfact}%
+    $layout
 }
 
 newpanecurdir() {
   tmux \
     split-window -t :.0 -c "#{pane_current_path}"\; \
     swap-pane -s :.0 -t :.1\; \
-    select-layout main-vertical\; \
-    resize-pane -t :.0 -x ${mfact}%
+    $layout
 }
 
 killpane() {
   if [ $window_panes -gt 1 ]; then
-    tmux kill-pane -t :.\; \
-         select-layout main-vertical\; \
-         resize-pane -t :.0 -x ${mfact}%
+    tmux kill-pane -t :.\; $layout
   else
     if [ $killlast -ne 0 ]; then
       tmux kill-window
@@ -33,11 +25,19 @@ killpane() {
 }
 
 nextpane() {
-  tmux select-pane -t :.+
+  if [ "$monocle" -eq 0 ]; then
+    tmux select-pane -t :.+
+  else
+    tmux select-pane -t :.+\; resize-pane -Z
+  fi
 }
 
 prevpane() {
-  tmux select-pane -t :.-
+  if [ "$monocle" -eq 0 ]; then
+    tmux select-pane -t :.-
+  else
+    tmux select-pane -t :.-\; resize-pane -Z
+  fi
 }
 
 # move current pane to a specific window
@@ -55,8 +55,7 @@ movepane() {
   # retile the current window
   tmux \
     move-pane -t:$window\; \
-    select-layout main-vertical\; \
-    resize-pane -t :.0 -x ${mfact}%
+    $layout
 
   # Select the window where we moved the pane
   if [ $newwin -ne 0 ]; then
@@ -68,28 +67,42 @@ movepane() {
   fi
 
   # Apply the dwm layout to the target window
-  tmux select-layout -t:$window main-vertical
-  tmux resize-pane -t:${window}.0 -x ${mfact}%
+  tmux $layout
 }
 
 rotateccw() {
-  tmux rotate-window -U\; select-pane -t 0
+  tmux rotate-window -U\; select-pane -t 0\; $layout
 }
 
 rotatecw() {
-  tmux rotate-window -D\; select-pane -t 0
+  tmux rotate-window -D\; select-pane -t 0\; $layout
 }
 
 zoom() {
-  tmux swap-pane -s :. -t :.0\; select-pane -t :.0
+  tmux swap-pane -s :. -t :.0\; select-pane -t :.0\; $layout
 }
 
-layouttile() {
-  tmux select-layout main-vertical\; resize-pane -t :.0 -x ${mfact}%
+tile() {
+  tmux \
+    setenv monocle 0\; \
+    select-layout main-vertical\; \
+    resize-pane -t :.0 -x ${mfact}%
 }
 
-float() {
-  tmux resize-pane -Z
+monocle() {
+  if [ "$monocle" -eq 0 ]; then
+    tmux \
+      setenv monocle 1\; \
+      resize-pane -Z
+  else
+    tmux \
+      setenv monocle 0\; \
+      resize-pane -Z
+  fi
+}
+
+layout() {
+  tmux $layout
 }
 
 incmfact() {
@@ -150,10 +163,17 @@ fi
 
 command=$1;shift
 args=$*
-set -- $(tmux display -p "#{window_panes} #{killlast} #{mfact}")
+set -- $(tmux display -p "#{window_panes} #{killlast} #{mfact} #{monocle}")
 window_panes=$1
-killlast=$2
-mfact=$3
+killlast=${2:-0}
+mfact=${3:-50}
+monocle=${4:-0}
+
+if [ "$monocle" -eq 1 ]; then
+  layout="select-layout main-vertical; resize-pane -t :.0 -x ${mfact}%; resize-pane -Z"
+else
+  layout="select-layout main-vertical; resize-pane -t :.0 -x ${mfact}%"
+fi
 
 case $command in
   newpane) newpane;;
@@ -164,8 +184,10 @@ case $command in
   rotateccw) rotateccw;;
   rotatecw) rotatecw;;
   zoom) zoom;;
-  layouttile) layouttile;;
-  float) float;;
+  tile) tile;;
+  float) monocle;; # retain for backwards compatibility
+  monocle) monocle;;
+  layout) layout;;
   incmfact) incmfact;;
   decmfact) decmfact;;
   window) window $args;;
