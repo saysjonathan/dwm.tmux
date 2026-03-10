@@ -110,7 +110,7 @@ zoom() {
 # Set the layout to tiled
 tile() {
   tmux \
-    setenv monocle 0\; \
+    set-option -w @monocle 0\; \
     select-layout main-vertical\; \
     resize-pane -t :.0 -x ${mfact}%
 }
@@ -119,11 +119,11 @@ tile() {
 monocle() {
   if [ "$monocle" -eq 0 ]; then
     tmux \
-      setenv monocle 1\; \
+      set-option -w @monocle 1\; \
       resize-pane -Z
   else
     tmux \
-      setenv monocle 0\; \
+      set-option -w @monocle 0\; \
       resize-pane -Z
   fi
 }
@@ -138,7 +138,7 @@ incmfact() {
   fact=$((mfact + 5))
   if [ $fact -le 95 ]; then
     tmux \
-      setenv mfact $fact\; \
+      set-option -w @mfact $fact\; \
       resize-pane -t :.0 -x ${fact}%
   fi
 }
@@ -148,7 +148,7 @@ decmfact() {
   fact=$((mfact - 5))
   if [ $fact -ge 5 ]; then
     tmux \
-      setenv mfact $fact\; \
+      set-option -w @mfact $fact\; \
       resize-pane -t :.0 -x ${fact}%
   fi
 }
@@ -200,7 +200,7 @@ command=$1;shift
 args=$@
 
 # Set positional arguments from tmux env var checks
-set -- $(tmux display -p "#{window_panes} #{pane_index} #{killlast} #{mfact} #{monocle}")
+set -- $(tmux display -p "#{window_panes} #{pane_index} #{killlast} #{@mfact} #{@monocle}")
 window_panes=$1
 pane_index=$2
 killlast=${3:-0}
