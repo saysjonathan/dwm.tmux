@@ -40,6 +40,8 @@ set -g command-alias[133] movepane8='run-shell "dwm.tmux movepane 8"'
 set -g command-alias[134] movepane9='run-shell "dwm.tmux movepane 9"'
 set -g command-alias[135] monocle='run-shell "dwm.tmux monocle"'
 set -g command-alias[136] layout='run-shell "dwm.tmux layout"'
+set -g command-alias[137] stackup='run-shell "dwm.tmux stackup"'
+set -g command-alias[138] stackdown='run-shell "dwm.tmux stackdown"'
 
 set-hook -g pane-exited 'run-shell "dwm.tmux layout"'
 
@@ -48,6 +50,8 @@ bind -n M-w newpanecurdir
 bind -n M-c killpane
 bind -n M-j nextpane
 bind -n M-k prevpane
+bind -n M-J stackup
+bind -n M-K stackdown
 bind -n M-< rotateccw
 bind -n M-> rotatecw
 bind -n M-Enter zoom
