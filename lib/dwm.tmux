@@ -82,3 +82,5 @@ bind -n M-^ movepane6
 bind -n M-& movepane7
 bind -n M-* movepane8
 bind -n M-( movepane9
+bind -n M-` last-window
+bind -n M-b set-option -g status
