@@ -6,6 +6,8 @@ newpane() {
     split-window -t :.0\; \
     swap-pane -s :.0 -t :.1\; \
     $layout
+
+  applypfacts
 }
 
 # Create a new pane in the current directory in the current window
@@ -14,12 +16,15 @@ newpanecurdir() {
     split-window -t :.0 -c "#{pane_current_path}"\; \
     swap-pane -s :.0 -t :.1\; \
     $layout
+
+  applypfacts
 }
 
 # Kill the focused pane
 killpane() {
   if [ $window_panes -gt 1 ]; then
     tmux kill-pane -t :.\; $layout
+    applypfacts
   else
     # Only kill the last pane if $killlast is set
     if [ $killlast -ne 0 ]; then
@@ -51,6 +56,7 @@ stackup() {
   # Guard against moving panes 0 or 1
   if [ "$pane_index" -gt 1 ]; then
     tmux swap-pane -U\; $layout
+    applypfacts
   fi
 }
 
@@ -59,6 +65,7 @@ stackdown() {
   # Guard against moving the last pane or pane 0
   if [ "$pane_index" -lt $((window_panes - 1)) ] && [ "$pane_index" -ge 1 ]; then
     tmux swap-pane -D\; $layout
+    applypfacts
   fi
 }
 
@@ -79,6 +86,8 @@ movepane() {
     move-pane -t:$window\; \
     $layout
 
+  applypfacts
+
   # Select the window where we moved the pane
   if [ $newwin -ne 0 ]; then
     tmux \
@@ -90,21 +99,51 @@ movepane() {
 
   # Apply the dwm layout to the target window
   tmux $layout
+  applypfacts
+}
+
+# Increase the pfact of the focused pane
+incpfact() {
+  pfact=$(tmux display -p "#{@pfact}")
+  fact=$((pfact + 1))
+  if [ $fact -le 9 ]; then
+    tmux set-option -p @pfact $fact
+    applypfacts
+  fi
+}
+
+# Decrease the pfact of the focused pane
+decpfact() {
+  pfact=$(tmux display -p "#{@pfact}")
+  fact=$((pfact - 1))
+  if [ $fact -ge 1 ]; then
+    tmux set-option -p @pfact $fact
+    applypfacts
+  fi
+}
+
+# Reset the pfact of the focused pane
+resetpfact() {
+  tmux set-option -p @pfact 5
+  applypfacts
 }
 
 # Rotate the panes in the current window counterclockwise
 rotateccw() {
   tmux rotate-window -U\; select-pane -t 0\; $layout
+  applypfacts
 }
 
 # Rotate the panes in the current window clockwise
 rotatecw() {
   tmux rotate-window -D\; select-pane -t 0\; $layout
+  applypfacts
 }
 
 # Promote focused pane to main
 zoom() {
   tmux swap-pane -s :. -t :.0\; select-pane -t :.0\; $layout
+  applypfacts
 }
 
 # Set the layout to tiled
@@ -113,6 +152,8 @@ tile() {
     set-option -w @monocle 0\; \
     select-layout main-vertical\; \
     resize-pane -t :.0 -x ${mfact}%
+
+  applypfacts
 }
 
 # Toggle monocle mode, fullscreen focused pane
@@ -128,9 +169,40 @@ monocle() {
   fi
 }
 
+# Apply pfacts to panes in stack
+applypfacts() {
+  wp=$(tmux display -p "#{window_panes}")
+  [ $wp -le 2 ] && return
+
+  total_height=0
+  total_pfact=0
+  pane_data=""
+
+  while read -r index height ppfact; do
+    [ "$index" -eq 0 ] && continue
+    total_height=$((total_height + height))
+    total_pfact=$((total_pfact + ppfact))
+    pane_data="$pane_data $index:$ppfact"
+  done <<EOF
+$(tmux list-panes -F "#{pane_index} #{pane_height} #{@pfact}")
+EOF
+
+  cmd=""
+  for pane in $pane_data; do
+    index=${pane%%:*}
+    ppfact=${pane##*:}
+    height=$((ppfact * total_height / total_pfact))
+    [ -n "$cmd" ] && cmd="$cmd; "
+    cmd="${cmd}resize-pane -t :.$index -y $height"
+  done
+
+  tmux $cmd
+}
+
 # Reapply the current layout
 layout() {
   tmux $layout
+  applypfacts
 }
 
 # Increment the size of the main pane
@@ -236,5 +308,9 @@ case $command in
   movepane) movepane $args;;
   stackup) stackup;;
   stackdown) stackdown;;
+  incpfact) incpfact;;
+  decpfact) decpfact;;
+  resetpfact) resetpfact;;
+  applypfacts) applypfacts;;
   *) echo "unknown command"; exit 1;;
 esac

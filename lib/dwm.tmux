@@ -2,6 +2,7 @@ setenv -g tmuxdwm_version 0.1.0
 setenv -g killlast 0 # Toggle killing last pane
 set-option -wg @mfact 50   # Main pane area factor
 set-option -wg @monocle 0
+set-option -wg @pfact 5 # default pane factor, scale 1-9
 
 set -g command-alias[100] newpane='run-shell "dwm.tmux newpane"'
 set -g command-alias[101] newpanecurdir='run-shell "dwm.tmux newpanecurdir"'
@@ -42,6 +43,9 @@ set -g command-alias[135] monocle='run-shell "dwm.tmux monocle"'
 set -g command-alias[136] layout='run-shell "dwm.tmux layout"'
 set -g command-alias[137] stackup='run-shell "dwm.tmux stackup"'
 set -g command-alias[138] stackdown='run-shell "dwm.tmux stackdown"'
+set -g command-alias[139] incpfact='run-shell "dwm.tmux incpfact"'
+set -g command-alias[140] decpfact='run-shell "dwm.tmux decpfact"'
+set -g command-alias[141] resetpfact='run-shell "dwm.tmux resetpfact"'
 
 set-hook -g pane-exited 'run-shell "dwm.tmux layout"'
 
@@ -83,4 +87,7 @@ bind -n M-& movepane7
 bind -n M-* movepane8
 bind -n M-( movepane9
 bind -n M-` last-window
+bind -n M-. incpfact
+bind -n M-, decpfact
+bind -n M-= resetpfact
 bind -n M-b set-option -g status

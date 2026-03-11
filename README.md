@@ -5,7 +5,7 @@ dwm.tmux
 ![](https://raw.githubusercontent.com/saysjonathan/dwm.tmux/master/screenshot.png)
 
 ## Dependencies
-dwm.tmux requires tmux > 3.2.
+dwm.tmux requires tmux >= 3.2.
 
 ## Installation
 To install, use the provided `Makefile`:
@@ -16,7 +16,7 @@ cd dwm.tmux
 make
 ```
 
-By default `dwm.tmux` uses `/usr/local` as it's prefix. To change the prefix:
+By default `dwm.tmux` uses `/usr/local` as its prefix. To change the prefix:
 
 ```sh
 make PREFIX=$HOME
@@ -53,18 +53,24 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `newwindow` `Meta-N` Create a new window starting in the same directory as the current pane
 - `killwindow` `Meta-X` Delete the current active window
 - `popup` `Meta-p` Display a floating pane popup in the current pane's directory
+- `incpfact` `Meta-.` Increase the size of the focused pane in the stack, relative to the other panes
+- `decpfact` `Meta-,` Decrease the size of the focused pane in the stack, relative to the other panes
+- `resetpfact` `Meta-=` Reset the pfact of the focused pane
 
-Also defined are environment variables to tweak behavior:
+Also defined are global options to tweak behavior:
 
 - `mfact` Main pane space factor, the size of the main pane as a percentage of total window size
-- `killlast` If value is greater than `0`, kill pane even if its the last pane in a window
+- `killlast` If value is greater than `0`, kill pane even if it is the last pane in a window
 - `monocle` Tracks active layout mode; 0 for tile, 1 for monocle. Set automatically but can be read to inspect current state.
+- `pfact` Per-pane stack size factor, scale 1-9, default 5. Higher values give the pane more relative height in the stack
 
 ### Customizations
 Keybindings and default values can be set in a configuration file:
 
 ```
 setenv -g killlast 1 # kill pane even if it's the last
+set-option -wg @mfact 60
+set-option -wg @pfact 4
 bind -n M-q killpane
 bind -n M-w newpanecurdir
 ```
@@ -85,4 +91,4 @@ Similar to dwm, windows are always organised as follows:
  ====================================
 ```
 
-A large Main pane is placed on the left side of the screen while a stack of smaller panes is placed on the right. The Main pane is always pane 0,  while the stack of panes is numbered sequentially in ascending order.
+A large Main pane is placed on the left side of the screen while a stack of smaller panes is placed on the right. The Main pane is always pane 0, while the stack of panes is numbered sequentially in ascending order.
