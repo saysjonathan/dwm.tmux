@@ -1,4 +1,4 @@
-setenv -g tmuxdwm_version 0.1.0
+setenv -g tmuxdwm_version 0.2.0
 setenv -g killlast 0 # Toggle killing last pane
 set-option -wg @mfact 50   # Main pane area factor
 set-option -wg @monocle 0
