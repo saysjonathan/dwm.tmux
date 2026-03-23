@@ -5,6 +5,7 @@ newpane() {
   tmux \
     split-window -t :.0\; \
     swap-pane -s :.0 -t :.1\; \
+    select-pane -t :.0\; \
     $layout
 
   applypfacts
@@ -15,6 +16,7 @@ newpanecurdir() {
   tmux \
     split-window -t :.0 -c "#{pane_current_path}"\; \
     swap-pane -s :.0 -t :.1\; \
+    select-pane -t :.0\; \
     $layout
 
   applypfacts
@@ -171,6 +173,7 @@ monocle() {
 
 # Apply pfacts to panes in stack
 applypfacts() {
+  [ "$monocle" -eq 1 ] && return
   wp=$(tmux display -p "#{window_panes}")
   [ $wp -le 2 ] && return
 
