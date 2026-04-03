@@ -260,6 +260,7 @@ killwindow() {
 # Display a floating pane popup in the current directory
 popup() {
   tmux display-popup -E -d "#{pane_current_path}"
+  return 0
 }
 
 
