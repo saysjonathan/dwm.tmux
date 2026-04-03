@@ -57,6 +57,10 @@ echo 'source-file /usr/local/lib/dwm.tmux' >> $HOME/.tmux.conf
 - `decpfact` `Meta-,` Decrease the size of the focused pane in the stack, relative to the other panes
 - `resetpfact` `Meta-=` Reset the pfact of the focused pane
 
+Additional keybindings for window cycling are also included:
+- `Meta-[` Previous window
+- `Meta-]` Next window
+
 Also defined are global options to tweak behavior:
 
 - `mfact` Main pane space factor, the size of the main pane as a percentage of total window size

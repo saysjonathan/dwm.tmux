@@ -91,3 +91,5 @@ bind -n M-. incpfact
 bind -n M-, decpfact
 bind -n M-= resetpfact
 bind -n M-b set-option -g status
+bind -n M-[ select-window -t :-
+bind -n M-] select-window -t :+
