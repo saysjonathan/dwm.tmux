@@ -9,7 +9,7 @@ dwm.tmux requires tmux >= 3.2.
 
 ## Installation
 ### Via TPM (recommended)
-Add to "~/.tmux.conf":
+Add to `~/.tmux.conf`:
 
 ```sh
 set -g @plugin 'saysjonathan/dwm.tmux'
@@ -34,7 +34,6 @@ make PREFIX=$HOME
 
 Ensure that `$PREFIX/bin` is in your `PATH`.
 
-## Setup
 To use, source the `dwm.tmux` tmux config:
 
 ```sh
@@ -79,7 +78,9 @@ Also defined are global options to tweak behavior:
 - `pfact` Per-pane stack size factor, scale 1-9, default 5. Higher values give the pane more relative height in the stack
 
 ### Customizations
-Keybindings and default values can be set in a configuration file:
+Keybindings and default values can be set in a configuration file. When using TPM, these must be set after the `run '~/.tmux/plugins/tpm/tpm'` line in `~/.tmux.conf`.
+
+Examples:
 
 ```
 setenv -g killlast 1 # kill pane even if it's the last
@@ -89,11 +90,9 @@ bind -n M-q killpane
 bind -n M-w newpanecurdir
 ```
 
-Customizations should be added after the `source-file` command which loads `dwm.tmux`.
-
 ## Details
 
-Similar to dwm, windows are always organised as follows:
+Similar to dwm, windows are always organized as follows:
 
 ```
  ====================================
