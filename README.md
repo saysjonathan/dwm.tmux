@@ -8,6 +8,16 @@ dwm.tmux
 dwm.tmux requires tmux >= 3.2.
 
 ## Installation
+### Via TPM (recommended)
+Add to "~/.tmux.conf":
+
+```sh
+set -g @plugin 'saysjonathan/dwm.tmux'
+```
+
+Reload and run `prefix-I` to fetch.
+
+### Manual install (legacy)
 To install, use the provided `Makefile`:
 
 ```sh
@@ -87,11 +97,11 @@ Similar to dwm, windows are always organised as follows:
 
 ```
  ====================================
-|                 |        S1        | 
+|                 |        S1        |
 |                 |==================
-|      M(0)       |        S2        | 
+|      M(0)       |        S2        |
 |                 |==================
-|                 |        S3        | 
+|                 |        S3        |
  ====================================
 ```
 
